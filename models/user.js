@@ -17,18 +17,14 @@ const userSchema = new mongoose.Schema({
     maxlength: 30,
   },
   avatar: {
-    link: [
-      {
-        type: String,
-        required: true,
-        validate: {
-          validator: function (v) {
-            return regExpLink.test(v);
-          },
-          message: "NOT FOUND",
-        },
+    type: String,
+    required: true,
+    validate: {
+      validator: function (v) {
+        return regExpLink.test(v);
       },
-    ],
+      message: "Formato incorrecto",
+    },
   },
 });
 

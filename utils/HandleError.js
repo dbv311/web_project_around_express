@@ -1,6 +1,6 @@
-const handleError = (error) => {
+const handleError = (error, res) => {
   const ERROR_CODE = 400;
-  if (err.name === "NOT_FOUND") {
+  if (error.name === "NOT_FOUND") {
     return res.status(error.statusCode).send({
       status: false,
       message: "Elemetno no encontrado",
