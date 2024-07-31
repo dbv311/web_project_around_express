@@ -8,9 +8,9 @@ const getCards = (req, res) => {
   });
 };
 
-const storeCard = (req, res) => {
-  const { name, link, ownerId, likes, createAt } = req.body;
-  CardModel.create({ name, link, owner: ownerId, likes, createAt })
+const createCard = (req, res) => {
+  const { name, link } = req.body;
+  CardModel.create({ name, link, owner: req.user._id })
     .then((card) => {
       res.send(card);
     })
@@ -31,4 +31,20 @@ const deleteCard = (req, res) => {
     .catch(handleError);
 };
 
-module.exports = { getCards, storeCard, deleteCard };
+const cardLike = (req, res) => {
+  CardModel.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true }
+  );
+};
+
+const cardDislike = (req, res) => {
+  CardModel.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: req.user._id } },
+    { new: true }
+  );
+};
+
+module.exports = { getCards, createCard, deleteCard, cardLike, cardDislike };

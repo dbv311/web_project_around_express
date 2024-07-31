@@ -3,7 +3,7 @@ const handleError = (error, res) => {
   if (error.name === "NOT_FOUND") {
     return res.status(error.statusCode).send({
       status: false,
-      message: "Elemetno no encontrado",
+      message: "Elemento no encontrado",
     });
   } else {
     return res.status(ERROR_CODE).send({

@@ -25,4 +25,22 @@ const newUser = (req, res) => {
     .catch((error) => handleError(error, res));
 };
 
-module.exports = { allUsers, getUser, newUser };
+const updateUser = (req, res) => {
+  UserInfo.findByIdAndUpdate(req.params.id)
+    .orFail()
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((error) => handleError(error, res));
+};
+
+const updateAvatar = (req, res) => {
+  UserInfo.findByIdAndUpdate(req.params.id)
+    .orFail()
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((error) => handleError(error, res));
+};
+
+module.exports = { allUsers, getUser, newUser, updateUser, updateAvatar };
