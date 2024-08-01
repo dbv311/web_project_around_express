@@ -26,7 +26,8 @@ const newUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  UserInfo.findByIdAndUpdate(req.params.id)
+  const { name, about } = req.body;
+  UserInfo.findByIdAndUpdate(req.user._id, { name, about }, { new: true })
     .orFail()
     .then((user) => {
       res.send(user);
@@ -35,7 +36,8 @@ const updateUser = (req, res) => {
 };
 
 const updateAvatar = (req, res) => {
-  UserInfo.findByIdAndUpdate(req.params.id)
+  const { avatar } = req.body;
+  UserInfo.findByIdAndUpdate(req.user._id, { avatar }, { new: true })
     .orFail()
     .then((user) => {
       res.send(user);

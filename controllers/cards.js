@@ -36,7 +36,12 @@ const cardLike = (req, res) => {
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
     { new: true }
-  );
+  )
+    .orFail()
+    .then((card) => {
+      res.send(card);
+    })
+    .catch(handleError);
 };
 
 const cardDislike = (req, res) => {
@@ -44,7 +49,12 @@ const cardDislike = (req, res) => {
     req.params.cardId,
     { $pull: { likes: req.user._id } },
     { new: true }
-  );
+  )
+    .orFail()
+    .then((card) => {
+      res.send(card);
+    })
+    .catch(handleError);
 };
 
 module.exports = { getCards, createCard, deleteCard, cardLike, cardDislike };
